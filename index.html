@@ -1,302 +1,693 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的导航页</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-image: url('http://files.unn.pp.ua/download/pictures%2Fbackground.jpg');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
-            margin: 0;
-            padding: 20px;
-            color: #333;
-        }
-        
-        .header {
-            color: #fff;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-        }
-        
-        .search-container {
-            padding: 3rem;
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto 20px;
-        }
-        
-        .search-box {
-            width: 100%;
-            padding: 15px 18px;
-            font-size: 20px;
-            border: none;
-            border-radius: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            outline: none;
-            background-color: rgba(255, 255, 255, 0.7);
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 12px;
-        }
-        
-        .link-item {
-            background-color: rgba(255, 255, 255, 0.3);
-            border-radius: 15px;
-            padding: 12px;
-            transition: all 0.2s;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            height: 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .link-item:hover {
-            background-color: rgba(255, 255, 255, 0.85);
-            transform: translateY(-2px);
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
-        }
-        
-        .link-item a {
-            text-decoration: none;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            justify-content: center;
-        }
-        
-        .link-icon {
-            width: 24px;
-            height: 24px;
-            margin-bottom: 8px;
-            object-fit: contain;
-        }
-        
-        .link-text {
-            font-size: 14px;
-            text-align: center;
-            word-break: break-word;
-            max-width: 100%;
-        }
-        .foot_marker {
-            position: fixed;
-            bottom: 10px;
-            left: 0;
-            right: 0;
-            width: 100%;
-            text-align: center;
-            font-size: 12px;
-            color: rgba(255,255,255,0.8);
-            z-index: 999;
-            padding: 10px 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STREAM VAULT — Video Destinations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0c;
+      --surface: #141418;
+      --surface-hover: #1c1c22;
+      --accent: #e0a030;
+      --accent-dim: #a07020;
+      --text-primary: #f0ece4;
+      --text-secondary: #9a9590;
+      --text-muted: #5a5550;
+      --border: #2a2a30;
+      --glow: rgba(224, 160, 48, 0.08);
+    }
 
-        .foot_marker a {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            padding: 5px 10px;
-            border-radius: 15px;
-        }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        .foot_marker a:hover {
-            color: #4388e0;
-        }        
-    </style>
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 10% 0%, rgba(224, 160, 48, 0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 100%, rgba(120, 80, 200, 0.03) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 128px 128px;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── HEADER ── */
+    header {
+      padding: 3rem 0 2rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 3rem;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .logo-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 6vw, 5rem);
+      letter-spacing: 0.06em;
+      line-height: 0.9;
+      color: var(--text-primary);
+      display: flex;
+      align-items: baseline;
+      gap: 0.3em;
+    }
+
+    .logo .dot {
+      display: inline-block;
+      width: 0.35em;
+      height: 0.35em;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-bottom: 0.05em;
+      box-shadow: 0 0 20px var(--accent), 0 0 60px rgba(224, 160, 48, 0.3);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(0.85); }
+    }
+
+    .tagline {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .header-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: right;
+      line-height: 1.8;
+    }
+
+    .header-meta span {
+      color: var(--accent-dim);
+    }
+
+    /* ── FEATURED ── */
+    .section-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.2em;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .featured-card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.5rem;
+      text-decoration: none;
+      color: inherit;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 220px;
+    }
+
+    .featured-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      border-radius: 12px;
+    }
+
+    .featured-card:hover {
+      border-color: var(--accent-dim);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px var(--glow);
+    }
+
+    .featured-card:hover::before {
+      opacity: 1;
+    }
+
+    .featured-card[data-color="red"]::before {
+      background: radial-gradient(ellipse at 80% 20%, rgba(220, 40, 40, 0.06) 0%, transparent 60%);
+    }
+    .featured-card[data-color="blue"]::before {
+      background: radial-gradient(ellipse at 80% 20%, rgba(40, 100, 220, 0.06) 0%, transparent 60%);
+    }
+    .featured-card[data-color="teal"]::before {
+      background: radial-gradient(ellipse at 80% 20%, rgba(40, 200, 180, 0.06) 0%, transparent 60%);
+    }
+    .featured-card[data-color="violet"]::before {
+      background: radial-gradient(ellipse at 80% 20%, rgba(140, 60, 220, 0.06) 0%, transparent 60%);
+    }
+
+    .featured-card .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .featured-card .card-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .featured-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.4rem;
+    }
+
+    .featured-card .desc {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .featured-card .url {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent-dim);
+      margin-top: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .featured-card .url .arrow {
+      transition: transform 0.3s ease;
+    }
+
+    .featured-card:hover .url .arrow {
+      transform: translateX(4px);
+    }
+
+    /* ── MAIN GRID ── */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-bottom: 4rem;
+    }
+
+    .card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.8rem;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+    }
+
+    .card:nth-child(1)  { animation-delay: 0.05s; }
+    .card:nth-child(2)  { animation-delay: 0.1s; }
+    .card:nth-child(3)  { animation-delay: 0.15s; }
+    .card:nth-child(4)  { animation-delay: 0.2s; }
+    .card:nth-child(5)  { animation-delay: 0.25s; }
+    .card:nth-child(6)  { animation-delay: 0.3s; }
+    .card:nth-child(7)  { animation-delay: 0.35s; }
+    .card:nth-child(8)  { animation-delay: 0.4s; }
+    .card:nth-child(9)  { animation-delay: 0.45s; }
+    .card:nth-child(10) { animation-delay: 0.5s; }
+    .card:nth-child(11) { animation-delay: 0.55s; }
+    .card:nth-child(12) { animation-delay: 0.6s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card:hover {
+      border-color: var(--accent-dim);
+      background: var(--surface-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+
+    .card .card-icon {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 700;
+      font-family: 'Bebas Neue', sans-serif;
+    }
+
+    .card .card-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .card h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.25rem;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.25rem;
+    }
+
+    .card p {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+
+    .card .link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--accent-dim);
+      letter-spacing: 0.02em;
+    }
+
+    .card .tag {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── COLORS ── */
+    .c-red    { background: rgba(220, 50, 50, 0.12); color: #e05555; }
+    .c-blue   { background: rgba(50, 120, 230, 0.12); color: #5590e0; }
+    .c-teal   { background: rgba(40, 190, 170, 0.12); color: #40c0a0; }
+    .c-violet { background: rgba(140, 70, 220, 0.12); color: #a070e0; }
+    .c-orange { background: rgba(230, 140, 40, 0.12); color: #e0a040; }
+    .c-pink   { background: rgba(220, 60, 140, 0.12); color: #e05080; }
+    .c-green  { background: rgba(50, 180, 80, 0.12); color: #50c060; }
+    .c-sky    { background: rgba(50, 170, 230, 0.12); color: #50a0e0; }
+    .c-cyan   { background: rgba(40, 200, 220, 0.12); color: #40c0d0; }
+    .c-rose   { background: rgba(220, 80, 100, 0.12); color: #e06070; }
+    .c-lime   { background: rgba(160, 200, 40, 0.12); color: #a0c840; }
+    .c-gold   { background: rgba(220, 180, 50, 0.12); color: #d0b040; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 0;
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer .footer-left {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    footer .footer-right {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    footer .footer-right a {
+      color: var(--accent-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer .footer-right a:hover {
+      color: var(--accent);
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .featured-grid {
+        grid-template-columns: 1fr;
+      }
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .header-meta {
+        text-align: left;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="search-container">
-        <form action="https://www.google.com/search" method="get" target="_blank">
-            <input class="search-box" type="text" name="q" placeholder="Google 搜索...">
-        </form>
-    </div>
-    
-    <div class="container">
-        <!-- 第一行 -->
-        <div class="link-item">
-            <a href="https://www.google.com" target="_blank">
-                <img class="link-icon" src="https://www.google.com/favicon.ico" alt="Google">
-                <span class="link-text">Google</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="https://www.baidu.com" target="_blank">
-                <img class="link-icon" src="https://www.baidu.com/favicon.ico" alt="Baidu">
-                <span class="link-text">Baidu</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="https://www.youtube.com" target="_blank">
-                <img class="link-icon" src="https://www.youtube.com/favicon.ico" alt="YouTube">
-                <span class="link-text">Youtube</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="https://mail.google.com/mail/u/0/" target="_blank">
-                <img class="link-icon" src="https://mail.google.com/favicon.ico" alt="Gmail">
-                <span class="link-text">Gmail</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="https://github.com" target="_blank">
-                <img class="link-icon" src="https://github.com/favicon.ico" alt="GitHub">
-                <span class="link-text">GitHub</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="https://ip.sb" target="_blank">
-                <img class="link-icon" src="https://ip.sb/favicon.ico" alt="IP SB">
-                <span class="link-text">ip.sb</span>
-            </a>
-        </div>
-        
-        <!-- 第二行 -->
-        <div class="link-item">
-            <a href="https://dash.cloudflare.com" target="_blank">
-                <img class="link-icon" src="https://www.cloudflare.com/favicon.ico" alt="Cloudflare">
-                <span class="link-text">Cloudflare</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="https://chat.openai.com" target="_blank">
-                <img class="link-icon" src="https://chat.openai.com/favicon.ico" alt="ChatGPT">
-                <span class="link-text">Chatgpt</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="https://huggingface.co" target="_blank">
-                <img class="link-icon" src="https://huggingface.co/favicon.ico" alt="Hugging Face">
-                <span class="link-text">Huggingface</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="https://www.itdog.cn" target="_blank">
-                <i class="fas fa-network-wired link-icon"></i>
-                <span class="link-text">ITDOG - 在线ping</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="https://ping0.cc" target="_blank">
-                <i class="fas fa-database link-icon"></i>
-                <span class="link-text">Ping0</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="#" target="_blank">
-                <i class="fas fa-fingerprint link-icon"></i>
-                <span class="link-text">浏览器指纹</span>
-            </a>
-        </div>
-        
-        <!-- 第三行 -->
-        <div class="link-item">
-            <a href="https://ssss.nyc.mn" target="_blank">
-                <i class="fas fa-tachometer-alt link-icon"></i>
-                <span class="link-text">nezha面板</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="https://hoppscotch.io" target="_blank">
-                <img class="link-icon" src="https://discord.com/favicon.ico" alt="Discord">
-                <span class="link-text">Api测试</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="https://who.cx" target="_blank">
-                <i class="fas fa-globe link-icon"></i>
-                <span class="link-text">who.cx</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="https://www.domcomp.com" target="_blank">
-                <i class="fas fa-tags link-icon"></i>
-                <span class="link-text">域名比价</span>
-            </a>
-        </div>
-        
-        <div class="link-item">
-            <a href="https://www.nodeseek.com" target="_blank">
-                <i class="fas fa-server link-icon"></i>
-                <span class="link-text">NodeSeek</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="https://linux.do" target="_blank">
-                <i class="fab fa-linux link-icon"></i>
-                <span class="link-text">Linux do</span>
-            </a>
-        </div>
-        
-        <!-- 第四行 -->
-        <div class="link-item">
-            <a href="https://music.gvrander.eu.org" target="_blank">
-                <i class="fab fa-linux link-icon"></i>
-                <span class="link-text">在线音乐</span>
-            </a>           
-        </div>
-        <div class="link-item">
-            <a href="https://www.freereceivesms.com" target="_blank">
-                <i class="fab fa-linux link-icon"></i>
-                <span class="link-text">免费接码</span>
-            </a> 
-        </div>
-        <div class="link-item">
-            <a href="https://sublink.eooce.com" target="_blank">
-                <i class="fab fa-linux link-icon"></i>
-                <span class="link-text">订阅转换</span>
-            </a> 
-        </div>
-        <div class="link-item">
-            <a href="https://ssh.eooce.com" target="_blank">
-                <i class="fab fa-linux link-icon"></i>
-                <span class="link-text">webssh</span>
-            </a> 
-        </div>
-        <div class="link-item">
-            <a href="https://filebox.nnuu.nyc.mn" target="_blank">
-                <i class="fab fa-linux link-icon"></i>
-                <span class="link-text">文件快递柜</span>
-            </a> 
-        </div>
-        <div class="link-item">
-            <a href="https://address.nnuu.nyc.mn" target="_blank">
-                <i class="fab fa-linux link-icon"></i>
-                <span class="link-text">真实地址生成</span>
-            </a> 
-        </div>
+  <div class="wrapper">
 
-        <!-- 版权 -->
-        <div class="foot_marker">
-        <a href="https://github.com/eooce" target="_blank">Powered by eooce</a>
+    <!-- HEADER -->
+    <header>
+      <div class="header-inner">
+        <div class="logo-group">
+          <div class="logo">
+            STREAM<span class="dot"></span>VAULT
+          </div>
+          <div class="tagline">curated directory of video platforms</div>
+        </div>
+        <div class="header-meta">
+          <span>24</span> platforms indexed<br>
+          last updated <span>june 2025</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- FEATURED -->
+    <div class="section-label">Featured Platforms</div>
+    <div class="featured-grid">
+
+      <a href="https://www.youtube.com" target="_blank" rel="noopener" class="featured-card" data-color="red">
+        <div>
+          <div class="icon c-red">YT</div>
+          <div class="card-content">
+            <h3>YouTube</h3>
+            <div class="desc">The world's largest video sharing platform. Billions of hours of content — from creators, music labels, educators, and newsrooms worldwide.</div>
+          </div>
+        </div>
+        <div class="url">youtube.com <span class="arrow">&rarr;</span></div>
+      </a>
+
+      <a href="https://www.netflix.com" target="_blank" rel="noopener" class="featured-card" data-color="red">
+        <div>
+          <div class="icon c-red">N</div>
+          <div class="card-content">
+            <h3>Netflix</h3>
+            <div class="desc">Leading subscription streaming service. Award-winning originals, global films, documentaries, and a vast on-demand library.</div>
+          </div>
+        </div>
+        <div class="url">netflix.com <span class="arrow">&rarr;</span></div>
+      </a>
+
+      <a href="https://www.twitch.tv" target="_blank" rel="noopener" class="featured-card" data-color="violet">
+        <div>
+          <div class="icon c-violet">Tw</div>
+          <div class="card-content">
+            <h3>Twitch</h3>
+            <div class="desc">The definitive live streaming platform for gaming, creative content, music, and IRL broadcasts. Real-time community interaction.</div>
+          </div>
+        </div>
+        <div class="url">twitch.tv <span class="arrow">&rarr;</span></div>
+      </a>
+
+      <a href="https://www.vimeo.com" target="_blank" rel="noopener" class="featured-card" data-color="teal">
+        <div>
+          <div class="icon c-teal">Vi</div>
+          <div class="card-content">
+            <h3>Vimeo</h3>
+            <div class="desc">Professional-grade video hosting and streaming. Favored by filmmakers, artists, and businesses for high-quality video delivery.</div>
+          </div>
+        </div>
+        <div class="url">vimeo.com <span class="arrow">&rarr;</span></div>
+      </a>
+
     </div>
 
-    <script>
-        document.querySelectorAll('.link-item:not(.empty)').forEach(item => {
-            const icon = item.querySelector('img.link-icon');
-            if (icon) {
-                icon.onerror = function() {
-                    this.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDJDNi40NzcgMiAyIDYuNDc3IDIgMTJzNC40NzcgMTAgMTAgMTAgMTAtNC40NzcgMTAtMTBTMTcuNTIzIDIgMTIgMnptMCAyYzQuNDE4IDAgOCAzLjU4MiA4IDhzLTMuNTgyIDgtOCA4LTgtMy41ODItOC04IDMuNTgyLTggOC04eiIgZmlsbD0iIzMzMyIvPjwvc3ZnPg==';
-                }
-            }
-        });
-    </script>
+    <!-- ALL PLATFORMS -->
+    <div class="section-label">Streaming Services</div>
+    <div class="video-grid">
+
+      <a href="https://www.disneyplus.com" target="_blank" rel="noopener" class="card">
+        <div class="card-icon c-blue">D+</div>
+        <div class="card-body">
+          <h4>Disney+</h4>
+          <p>Disney, Pixar, Marvel, Star Wars, National Geographic — all in one place.</p>
+          <div class="link">disneyplus.com</div>
+        </div>
+        <span class="tag">Premium</span>
+      </a>
+
+      <a href="https://www.max.com" target="_blank" rel="noopener" class="card">
+        <div class="card-icon c-violet">Mx</div>
+        <div class="card-body">
+          <h4>Max</h4>
+          <p>HBO originals, Warner Bros. films, Discovery content, and more premium entertainment.</p>
+          <div class="link">max.com</div>
+        </div>
+        <span class="tag">Premium</span>
+      </a>
+
+      <a href="https://www.primevideo.com" target="_blank" rel="noopener" class="card">
+        <div class="card-icon c-sky">PV</div>
+        <div class="card-body">
+          <h4>Prime Video</h4>
+          <p>Amazon's streaming service with originals, licensed films, and live sports events.</p>
+          <div class="link">primevideo.com</div>
+        </div>
+        <span class="tag">Premium</span>
+      </a>
+
+      <a href="https://tv.apple.com" target="_blank" rel="noopener" class="card">
+        <div class="card-icon c-gray" style="background:rgba(180,180,180,0.1);color:#c0c0c0;">AT</div>
+        <div class="card-body">
+          <h4>Apple TV+</h4>
+          <p>Critically acclaimed Apple Originals — series, films, documentaries, and kids content.</p>
+          <div class="link">tv.apple.com</div>
+        </div>
+        <span class="tag">Premium</span>
+      </a>
+
+      <a href="https://www.peacocktv.com" target="_blank" rel="noopener" class="card">
+        <div class="card-icon c-orange">Pc</div>
+        <div class="card-body">
+          <h4>Peacock</h4>
+          <p>NBCUniversal's platform. The Office, live sports, news, and blockbuster movies.</p>
+          <div class="link">peacocktv.com</div>
+        </div>
+        <span class="tag">Freemium</span>
+      </a>
+
+      <a href="https://www.hulu.com" target="_blank" rel="noopener" class="card">
+        <div class="card-icon c-green">Hu</div>
+        <div class="card-body">
+          <h4>Hulu</h4>
+          <p>Current-season TV, Hulu Originals, and a deep on-demand library with live TV options.</p>
+          <div class="link">hulu.com</div>
+        </div>
+        <span class="tag">Premium</span>
+      </a>
+
+      <a href="https://www.paramountplus.com" target="_blank" rel="noopener" class="card">
+        <div class="card-icon c-sky">P+</div>
+        <div class="card-body">
+          <h4>Paramount+</h4>
+          <p>CBS, Showtime, Paramount Pictures, MTV, Nickelodeon — all under one roof.</p>
+          <div class="link">paramountplus.com</div>
+        </div>
+        <span class="tag">Premium</span>
+      </a>
+
+      <a href="https://www.crunchyroll.com" target="_blank" rel="noopener" class="card">
+        <div class="card-icon c-orange">CR</div>
+        <div class="card-body">
+          <h4>Crunchyroll</h4>
+          <p>The premier destination for anime streaming. Thousands of titles, simulcasts, and manga.</p>
+          <div class="link">crunchyroll.com</div>
+        </div>
+        <span class="tag">Freemium</span>
+      </a>
+
+    </div>
+
+    <!-- OPEN & FREE -->
+    <div class="section-label">Open & Free Platforms</div>
+    <div class="video-grid">
+
+      <a href="https://www.dailymotion.com" target="_blank" rel="noopener" class="card">
+        <div class="card-icon c-cyan">DM</div>
+        <div class="card-body">
+          <h4>Dailymotion</h4>
+          <p>Global video sharing platform with curated content across news, music, sports, and entertainment.</p>
+          <div class="link">dailymotion.com</div>
+        </div>
+        <span class="tag">Free</span>
+      </a>
+
+      <a href="https://rumble.com" target="_blank" rel="noopener" class="card">
+        <div class="card-icon c-lime">Rm</div>
+        <div class="card-body">
+          <h4>Rumble</h4>
+          <p>Video platform focused on creator monetization and content independence. Growing rapidly.</p>
+          <div class="link">rumble.com</div>
+        </div>
+        <span class="tag">Free</span>
+      </a>
+
+      <a href="https://odysee.com" target="_blank" rel="noopener" class="card">
+        <div class="card-icon c-rose">Od</div>
+        <div class="card-body">
+          <h4>Odysee</h4>
+          <p>Decentralized video platform built on blockchain. Creator-first with open publishing standards.</p>
+          <div class="link">odysee.com</div>
+        </div>
+        <span class="tag">Free</span>
+      </a>
+
+      <a href="https://www.bitchute.com" target="_blank" rel="noopener" class="card">
+        <div class="card-icon c-rose">BC</div>
+        <div class="card-body">
+          <h4>BitChute</h4>
+          <p>Peer-to-peer video hosting platform. Emphasizes free speech and decentralized content distribution.</p>
+          <div class="link">bitchute.com</div>
+        </div>
+        <span class="tag">Free</span>
+      </a>
+
+      <a href="https://www.twitch.tv/directory/category/just-chatting" target="_blank" rel="noopener" class="card">
+        <div class="card-icon c-pink">Kc</div>
+        <div class="card-body">
+          <h4>Kick</h4>
+          <p>Newer live streaming platform with creator-friendly revenue splits and growing community.</p>
+          <div class="link">kick.com</div>
+        </div>
+        <span class="tag">Free</span>
+      </a>
+
+      <a href="https://www.dailymotion.com" target="_blank" rel="noopener" class="card">
+        <div class="card-icon c-gold">IA</div>
+        <div class="card-body">
+          <h4>Internet Archive Video</h4>
+          <p>Massive library of public domain films, historical footage, and archived video content.</p>
+          <div class="link">archive.org/details/moviesandfilms</div>
+        </div>
+        <span class="tag">Free</span>
+      </a>
+
+      <a href="https://tubitv.com" target="_blank" rel="noopener" class="card">
+        <div class="card-icon c-red">Tu</div>
+        <div class="card-body">
+          <h4>Tubi</h4>
+          <p>Free ad-supported streaming. Thousands of movies and TV shows with no subscription required.</p>
+          <div class="link">tubitv.com</div>
+        </div>
+        <span class="tag">Free</span>
+      </a>
+
+      <a href="https://www.pluto.tv" target="_blank" rel="noopener" class="card">
+        <div class="card-icon c-green">Pl</div>
+        <div class="card-body">
+          <h4>Pluto TV</h4>
+          <p>Free live TV and on-demand streaming. Hundreds of channels covering every genre imaginable.</p>
+          <div class="link">pluto.tv</div>
+        </div>
+        <span class="tag">Free</span>
+      </a>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-left">
+        STREAM VAULT is an independent directory.<br>
+        All trademarks belong to their respective owners.
+      </div>
+      <div class="footer-right">
+        built with care &mdash; <a href="#">back to top</a>
+      </div>
+    </footer>
+
+  </div>
 </body>
 </html>
